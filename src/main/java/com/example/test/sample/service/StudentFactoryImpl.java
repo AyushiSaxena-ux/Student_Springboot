@@ -8,12 +8,10 @@ import org.springframework.stereotype.Service;
 
 public class StudentFactoryImpl extends StudentFactory{
 
-    @Autowired
-    StudentRepository studentRepository;
 
 
     @Override
-   public StudentServiceAbstract getAppendedName(String name) {
+   public StudentServiceAbstract getAppendedName(String name,  StudentRepository studentRepository) {
         if (name.equalsIgnoreCase("address")) {
             return new StudentByAddressServiceAbstractImpl(studentRepository);
         }else{

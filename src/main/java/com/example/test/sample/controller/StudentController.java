@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 public class StudentController {
-
+    @Autowired
     StudentRepository studentRepository;
     StudentService studentService;
     @Autowired
@@ -50,11 +50,12 @@ public class StudentController {
     }
 
     @GetMapping(value = "/getStudent", produces  = MediaType.APPLICATION_JSON_VALUE)
-    public String getStudentNameOrAddress(@RequestParam(value = "id") int id, @RequestParam(value = "choice") String choice){
+    public StudentDTO getStudentNameOrAddress(@RequestParam(value = "id") int id, @RequestParam(value = "choice") String choice){
      StudentFactory studentFactory = FactoryCreator.getFactory();
-        StudentServiceAbstract studentServiceAbstract = studentFactory.getAppendedName(choice);
+        StudentServiceAbstract studentServiceAbstract = studentFactory.getAppendedName(choice, studentRepository);
         studentServiceAbstract.getNameById(id);
-        return studentServiceAbstract.appendNameWithRollNo(id);
+
+        return StudentDTO.builder().name(studentServiceAbstract.appendNameWithRollNo(id)).id(id).build();
 
     }
 }

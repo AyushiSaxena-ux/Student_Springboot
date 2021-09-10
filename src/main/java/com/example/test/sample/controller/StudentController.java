@@ -1,8 +1,10 @@
 package com.example.test.sample.controller;
 
 import com.example.test.sample.dto.StudentDTO;
-import com.example.test.sample.service.StudentService;
+import com.example.test.sample.repository.StudentRepository;
+import com.example.test.sample.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 @RestController
 public class StudentController {
 
+    StudentRepository studentRepository;
     StudentService studentService;
     @Autowired
     public StudentController(StudentService studentService){
@@ -46,4 +49,8 @@ public class StudentController {
         return  studentService.updateStudent(studentDTO);
     }
 
+    @GetMapping(value = "/getStudent", produces  = MediaType.APPLICATION_JSON_VALUE)
+    public String getStudentNameOrAddress(@RequestParam(value = "id") int id, @RequestParam(value = "choice") String choice){
+        new StudentByNameServiceAbstractImpl(studentRepository)
+    }
 }

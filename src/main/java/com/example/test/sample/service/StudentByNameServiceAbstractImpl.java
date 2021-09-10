@@ -10,8 +10,9 @@ public class StudentByNameServiceAbstractImpl extends  StudentServiceAbstract{
     public StudentByNameServiceAbstractImpl(StudentRepository studentRepository){
        this.studentRepository = studentRepository;
    }
+
     @Override
-    void getNameById(int id) {
+    public void getNameById(int id) {
         name =  studentRepository.getById(id).getName();
 
     }

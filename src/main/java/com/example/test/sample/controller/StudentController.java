@@ -51,6 +51,10 @@ public class StudentController {
 
     @GetMapping(value = "/getStudent", produces  = MediaType.APPLICATION_JSON_VALUE)
     public String getStudentNameOrAddress(@RequestParam(value = "id") int id, @RequestParam(value = "choice") String choice){
-        new StudentByNameServiceAbstractImpl(studentRepository)
+     StudentFactory studentFactory = FactoryCreator.getFactory();
+        StudentServiceAbstract studentServiceAbstract = studentFactory.getAppendedName(choice);
+        studentServiceAbstract.getNameById(id);
+        return studentServiceAbstract.appendNameWithRollNo(id);
+
     }
 }
